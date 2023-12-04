@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 
-const ApiOne = ({toggle}) => {
+const ApiOne = ({selectedIndex, index}) => {
 
   const [api, setApi] = useState("")
 
@@ -12,10 +12,14 @@ const ApiOne = ({toggle}) => {
     setApi(data)
   }
   
-  
+
+
+
+
+
   useEffect(() => {
     getApi()
-  }, [])
+  }, [selectedIndex])
 
 
 
@@ -27,9 +31,9 @@ const ApiOne = ({toggle}) => {
   if(!api) return <h1>loading...</h1>
 
   return (
-    <div>
-      {toggle === true ?  <p> {api.slip.advice}</p>: "H" }
-
+    <div >
+      { selectedIndex === index ?  <p className='apiOne' > {api.slip.advice}</p>: "" }
+      {console.log(" Selected Index " + selectedIndex + " Key " + index )}
     </div>
   )
 }

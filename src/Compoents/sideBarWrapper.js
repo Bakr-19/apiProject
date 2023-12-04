@@ -1,44 +1,77 @@
 import { useState, useEffect } from 'react'
 import CSS from '../App.css'
-import {v4 as uuidv4} from 'uuid'
 import { click } from '@testing-library/user-event/dist/click'
 import ApiOne from './ApiOne'
-uuidv4()
+import ApiTwo from './ApiTwo'
+import ApiThree from './ApiThree'
 
 
 
-const SideBarWrapper = ({}) => {
 
-
-  
-  let types = [[{name:"API 1", id:uuidv4(),
-  click:false, api:true },{name:"API 2", id:uuidv4(),
-   click:false, api:false },{name:"API 3", id:uuidv4(), click:false, api:false }]]
+const SideBarWrapper = () => {
 
  
 
   const[selectedIndex, setSelectedIndex] = useState(-1)
 
-  const [button,setButton] = useState(types[0])
+  const [apiOne,setApiOne] = useState([{name:"API 1", id: 0}])
+
+  const [apiTwo,setApiTwo] = useState([{name:"API 2", id: 1}])
+
+  const [apiThree,setApiThree] = useState([{name:"API 3", id: 2}])
 
 
-  const ApiHandle = (id) => {
-    {button.map(api => api.id === api.id?
-      {...api, api: !api.api}: api)}
-    setButton(...button)
+
+
+
+
+  const changeIndex = (index) => {
+    setSelectedIndex(index)
+
   }
 
   return (
     <div className='app'>
-      {button.map((api,index) => {
+      
+      {apiOne.map((api1,index) => {
         return <button 
-        className={ selectedIndex === index ? 'click' : 'api-btn'} 
+        className={ selectedIndex === api1.id ? 'click' : 'api-btn'} 
         key={index}
-        onClick={() => {setSelectedIndex(index)}}> {api.name} </button>
+        onClick={() => {changeIndex(api1.id)} }> {api1.name} </button>
       })}
-      {button.map((api,index) => {
-        <ApiOne toggle={api.api} key={index} />
+      
+      {apiTwo.map((api2,index) => {
+        return <button 
+        className={ selectedIndex === api2.id ? 'click' : 'api-btn'} 
+        key={index}
+        onClick={() => {changeIndex(api2.id)} }> {api2.name} </button>
       })}
+      
+      {apiThree.map((api3,index) => {
+        return <button 
+        className={ selectedIndex === api3.id ? 'click' : 'api-btn'} 
+        key={index}
+        onClick={() => {changeIndex(api3.id)} }> {api3.name} </button>
+      })}
+
+
+      {apiOne.map((api1,index) => {
+        return <ApiOne selectedIndex={selectedIndex} index={api1.id} key={index} />
+      })}
+      
+      {apiTwo.map((api2,index) => {
+        return <ApiTwo selectedIndex={selectedIndex} index={api2.id} key={index} />
+      })}
+      
+      {apiThree.map((api3,index) => {
+        return <ApiThree selectedIndex={selectedIndex} index={api3.id} key={index} />
+      })}
+
+
+
+
+
+
 
       
     </div>
